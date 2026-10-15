@@ -78,8 +78,11 @@ async def handler(event):
     new_text = text
     for url in urls:
         final_url = url
-        # Agar Amazon ka link hai, toh manually tag replace karo
-        if "amazon.in" in url or "amazon.com" in url:
+        
+        # Yahan humne sabhi Amazon short aur long links add kar diye hain
+        amazon_domains = ["amazon.in", "amazon.com", "amzn.in", "amzn.to", "amzn-to.co"]
+        
+        if any(domain in url for domain in amazon_domains):
             if "tag=" in final_url:
                 final_url = re.sub(r'tag=[a-zA-Z0-9_-]+', f'tag={YOUR_AMAZON_TAG}', final_url)
             else:
